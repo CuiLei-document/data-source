@@ -29,7 +29,7 @@
         output = '0'
         inputContent(event:MouseEvent) {
             const button = event.target as HTMLButtonElement
-            const input = button.textContent!
+            const input = button.textContent! //  强制指定类型 ！= as string
             if(this.output === '0'){
               if('0123456789'.indexOf(input)>=0){
                   this.output = input
