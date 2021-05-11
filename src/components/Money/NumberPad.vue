@@ -1,21 +1,21 @@
 <template>
     <div class="numberPad">
-        <div class="output">100</div>
+        <div class="output">{{output}}</div>
         <div class="buttons">
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>删除</button>
-            <button>5</button>
-            <button>6</button>
-            <button>7</button>
-            <button>清空</button>
-            <button>8</button>
-            <button>9</button>
-            <button>10</button>
+            <button @click="inputContent">1</button>
+            <button @click="inputContent">2</button>
+            <button @click="inputContent">3</button>
+            <button @click="cutout">删除</button>
+            <button @click="inputContent">5</button>
+            <button @click="inputContent">6</button>
+            <button @click="inputContent">7</button>
+            <button @click="clear">清空</button>
+            <button @click="inputContent">8</button>
+            <button @click="inputContent">9</button>
+            <button @click="inputContent">10</button>
             <button class="ok">OK</button>
-            <button>0</button>
-            <button class="zero">.</button>
+            <button @click="inputContent">0</button>
+            <button @click="inputContent" class="zero">.</button>
         </div>
     </div>
 </template>
@@ -26,7 +26,35 @@
 
     @Component
     export default class NumberPad extends Vue {
-
+        output = '0'
+        inputContent(event:MouseEvent) {
+            const button = event.target as HTMLButtonElement
+            const input = button.textContent!
+            if(this.output === '0'){
+              if('0123456789'.indexOf(input)>=0){
+                  this.output = input
+              }else{
+                  this.output += input
+              }
+              return
+            }
+            if(this.output.indexOf('.')>=0){
+                if(input === '.'){
+                    return;
+                }
+            }
+            this.output += input
+        }
+        cutout(){
+            if(this.output.length === 1){
+                this.output = '0'
+            }else{
+                this.output = this.output.slice(0,-1)
+            }
+        }
+        clear(){
+            this.output = '0'
+        }
     }
 </script>
 
